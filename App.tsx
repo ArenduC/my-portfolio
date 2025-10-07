@@ -1,5 +1,7 @@
+
 import React, { useState } from 'react';
-import AnimatedBackground from './components/AnimatedBackground';
+// FIX: Corrected import casing to match filename 'Animatedbackground.tsx' and resolve build error.
+import AnimatedBackground from './components/Animatedbackground';
 import Header from './components/Header';
 import { AboutPage } from './components/pages/AboutPage';
 import { PortfolioPage } from './components/pages/PortfolioPage';
@@ -18,9 +20,18 @@ interface ViewState {
 
 function App() {
   const [view, setView] = useState<ViewState>({ name: 'About' });
+  const [mousePos, setMousePos] = useState({ x: -100, y: -100 });
 
   const handleSetView = (name: string, payload = {}) => {
     setView({ name, ...payload });
+  };
+
+  const handleMouseMove = (event: React.MouseEvent<HTMLElement>) => {
+    setMousePos({ x: event.clientX, y: event.clientY });
+  };
+
+  const handleMouseLeave = () => {
+    setMousePos({ x: -100, y: -100 });
   };
 
   const renderPage = () => {
@@ -40,8 +51,12 @@ function App() {
   };
 
   return (
-    <main className="relative w-full bg-[#101010] text-white overflow-x-hidden">
-      <AnimatedBackground />
+    <main 
+        className="relative w-full bg-[#101010] text-white overflow-x-hidden"
+        onMouseMove={handleMouseMove}
+        onMouseLeave={handleMouseLeave}
+    >
+      <AnimatedBackground mousePos={mousePos} />
       <div className="relative z-10 flex min-h-screen w-full flex-col p-6 sm:p-8 md:p-16">
         <Header activeTab={view.name} setActiveTab={(tab) => handleSetView(tab)} />
         <AnimatePresence mode="wait">
