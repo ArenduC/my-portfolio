@@ -1,7 +1,6 @@
-
 import React, { useState } from 'react';
-// FIX: Corrected import casing to match filename 'Animatedbackground.tsx' and resolve build error.
-import AnimatedBackground from './components/Animatedbackground';
+// FIX: Corrected import casing to match filename 'AnimatedBackground.tsx' and resolve build error.
+import AnimatedBackground from './components/AnimatedBackground';
 import Header from './components/Header';
 import { AboutPage } from './components/pages/AboutPage';
 import { PortfolioPage } from './components/pages/PortfolioPage';

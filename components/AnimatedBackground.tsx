@@ -143,7 +143,8 @@ const AnimatedBackground: React.FC<AnimatedBackgroundProps> = ({ mousePos }) => 
                     // Draw SMALLER RED, ROUNDED bubble
                     ctx.fillStyle = 'rgba(235, 69, 52, 0.95)'; // Red color
                     ctx.beginPath();
-                    ctx.arc(0, 0, 10, 0, Math.PI * 2); // Corrected typo from Math.PI * 10
+                    // FIX: The end angle for a full circle must be Math.PI * 2. The original value was incorrect.
+                    ctx.arc(0, 0, 10, 0, Math.PI * 2);
                     ctx.fill();
 
                     // Draw smaller angry face in BLACK
