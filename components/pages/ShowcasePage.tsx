@@ -2,18 +2,8 @@ import React, { useState } from 'react';
 // FIX: Import the Transition type from framer-motion.
 import { motion, type Transition, AnimatePresence } from 'framer-motion';
 import { ProjectDetailModal } from '../ProjectDetailModal';
+import { type Project } from '../../data/projects';
 
-// FIX: Define a reusable Project interface with imageUrls array
-interface Project {
-    id: number;
-    title: string;
-    description: string;
-    imageUrls: string[];
-    tags: string[];
-    longDescription?: string;
-    liveUrl?: string;
-    repoUrl?: string;
-}
 
 interface ShowcasePageProps {
     title: string;

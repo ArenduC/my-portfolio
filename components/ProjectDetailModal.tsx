@@ -2,18 +2,8 @@ import React, { useState } from 'react';
 // FIX: Import the Variants and AnimatePresence types from framer-motion.
 import { motion, AnimatePresence, type Variants } from 'framer-motion';
 import { GitHubIcon } from './icons/GitHubIcon';
+import { type Project } from '../../data/projects';
 
-// FIX: Update Project interface to use an array for images.
-interface Project {
-    id: number;
-    title: string;
-    description: string;
-    imageUrls: string[];
-    tags: string[];
-    longDescription?: string;
-    liveUrl?: string;
-    repoUrl?: string;
-}
 
 interface ProjectDetailModalProps {
     project: Project;

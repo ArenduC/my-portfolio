@@ -1,5 +1,6 @@
 import React from 'react';
 import { motion, type Transition, type Variants } from 'framer-motion';
+import { projectData, type Project } from '../../data/projects';
 
 const pageVariants = {
     initial: { opacity: 0, y: 15 },
@@ -34,107 +35,9 @@ const cardVariants: Variants = {
     },
 };
 
-
-// Define the Project type, consistent with ShowcasePage
-interface Project {
-    id: number;
-    title: string;
-    description: string;
-    imageUrls: string[];
-    tags: string[];
-    longDescription?: string;
-    liveUrl?: string;
-    repoUrl?: string;
-}
-
 interface PortfolioPageProps {
     onShowcase: (title: string, projects: Project[]) => void;
 }
-
-// Mock Data
-const webProjects: Project[] = [
-    {
-        id: 1,
-        title: 'Portfolio Website',
-        description: 'The very website you are browsing now, built with React, Next.js, and Tailwind CSS.',
-        imageUrls: ['https://placehold.co/600x400/101010/F1D500?text=Portfolio-1', 'https://placehold.co/600x400/101010/F1D500?text=Portfolio-2'],
-        tags: ['React', 'TypeScript', 'Tailwind CSS', 'Framer Motion'],
-        longDescription: 'This personal portfolio is designed to showcase my skills and projects in a clean, modern, and interactive way. It features a dynamic animated background, smooth page transitions with Framer Motion, and a fully responsive design that works across all devices. The project is built on a robust stack including React and TypeScript for a type-safe and component-based architecture.',
-        repoUrl: 'https://github.com',
-    },
-    {
-        id: 2,
-        title: 'E-commerce Platform',
-        description: 'A full-featured e-commerce site for a fictional brand, built with Angular.',
-        imageUrls: ['https://placehold.co/600x400/101010/F1D500?text=E-commerce-1', 'https://placehold.co/600x400/101010/F1D500?text=E-commerce-2', 'https://placehold.co/600x400/101010/F1D500?text=E-commerce-3'],
-        tags: ['Angular', 'TypeScript', 'SCSS', 'NgRx'],
-        longDescription: 'This project is a comprehensive e-commerce platform featuring product catalogs, user authentication, a shopping cart, and a checkout process. State management is handled efficiently using NgRx. The front-end is built with Angular and is fully responsive.',
-        liveUrl: 'https://example.com',
-        repoUrl: 'https://github.com',
-    },
-];
-
-const mobileProjects: Project[] = [
-    {
-        id: 3,
-        title: 'Fitness Tracker App',
-        description: 'A cross-platform mobile app to track workouts and nutrition, built with Flutter.',
-        imageUrls: ['https://placehold.co/600x400/101010/F1D500?text=Fitness-1', 'https://placehold.co/600x400/101010/F1D500?text=Fitness-2'],
-        tags: ['Flutter', 'Dart', 'Firebase'],
-        longDescription: 'This fitness tracker helps users monitor their physical activity and diet. Features include real-time workout tracking, barcode scanner for food logging, and progress charts. It uses Firebase for backend services like authentication and database.',
-        repoUrl: 'https://github.com',
-    },
-    {
-        id: 4,
-        title: 'Recipe Finder App',
-        description: 'A mobile application for discovering and saving recipes, using a public API.',
-        imageUrls: ['https://placehold.co/600x400/101010/F1D500?text=Recipe-1'],
-        tags: ['Flutter', 'Dart', 'REST API'],
-        longDescription: 'This app allows users to search for recipes based on ingredients they have. It fetches data from a third-party API and presents it in a user-friendly interface. Users can save their favorite recipes for later access.',
-        repoUrl: 'https://github.com',
-    },
-];
-
-const designProjects: Project[] = [
-    {
-        id: 5,
-        title: '3D Donut',
-        description: 'My first foray into 3D modeling following the famous Blender Guru tutorial.',
-        imageUrls: ['https://placehold.co/600x400/101010/F1D500?text=Donut-3D-1'],
-        tags: ['Blender'],
-        longDescription: 'Every 3D artist starts somewhere, and for many, it\'s with a donut. This project was my introduction to the fundamentals of Blender, including modeling, sculpting, texturing, lighting, and rendering.',
-    },
-    {
-        id: 6,
-        title: 'Mobile App UI/UX',
-        description: 'A complete UI/UX design for a conceptual travel planning application.',
-        imageUrls: ['https://placehold.co/600x400/101010/F1D500?text=Travel-UI-1', 'https://placehold.co/600x400/101010/F1D500?text=Travel-UI-2'],
-        tags: ['Figma', 'UI/UX Design'],
-        longDescription: 'This project involved user research, wireframing, prototyping, and creating a high-fidelity design for a travel app. The goal was to create an intuitive and visually appealing interface that simplifies trip planning.',
-    },
-];
-
-
-const portfolioCategories = [
-    {
-        title: 'Web Development',
-        description: 'Building responsive and dynamic websites and applications.',
-        thumbnail: 'https://placehold.co/600x400/101010/F1D500?text=Web+Dev',
-        projects: webProjects,
-    },
-    {
-        title: 'Mobile App Development',
-        description: 'Creating beautiful and performant apps for iOS and Android with Flutter.',
-        thumbnail: 'https://placehold.co/600x400/101010/F1D500?text=Mobile+Dev',
-        projects: mobileProjects,
-    },
-    {
-        title: 'UI/UX & 3D Design',
-        description: 'Designing intuitive interfaces and creating 3D models and scenes.',
-        thumbnail: 'https://placehold.co/600x400/101010/F1D500?text=Design',
-        projects: designProjects,
-    },
-];
 
 const CategoryCard = ({ category, onClick }) => (
     <motion.div 
@@ -177,7 +80,7 @@ export const PortfolioPage: React.FC<PortfolioPageProps> = ({ onShowcase }) => {
                     initial="hidden"
                     animate="visible"
                 >
-                    {portfolioCategories.map(category => (
+                    {projectData.map(category => (
                         <CategoryCard 
                             key={category.title}
                             category={category}
