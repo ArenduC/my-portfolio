@@ -76,7 +76,7 @@ const AnimatedBackground: React.FC = () => {
 
                 // Draw the solid contour line
                 ctx.save();
-                ctx.strokeStyle = 'rgba(241, 213, 0, 0.1)'; // #F1D500 with 10% opacity
+                ctx.strokeStyle = 'rgba(241, 213, 0, 0.05)'; // #F1D500 with 5% opacity
                 ctx.lineWidth = 1;
                 ctx.stroke(state.path2D);
                 ctx.restore();

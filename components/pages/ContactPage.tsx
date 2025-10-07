@@ -118,7 +118,8 @@ export const ContactPage: React.FC = () => {
                     <form onSubmit={handleSubmit} noValidate className="bg-[#3c3c39]/60 backdrop-blur-sm border border-gray-700/50 rounded-lg p-8 md:p-10">
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <FormInput label="Name" name="name" value={formData.name} onChange={handleChange} error={errors.name} />
-                            <FormInput label="Email" name="email" type="email" value={formData.email} onChange={handleChange} error={errors.name} />
+                            {/* FIX: The email input was incorrectly showing the error for the name field. Corrected to use `errors.email`. */}
+                            <FormInput label="Email" name="email" type="email" value={formData.email} onChange={handleChange} error={errors.email} />
                         </div>
                         <FormInput label="Subject" name="subject" value={formData.subject} onChange={handleChange} error={errors.subject} />
                         <FormInput label="Message" name="message" type="textarea" value={formData.message} onChange={handleChange} error={errors.message} />

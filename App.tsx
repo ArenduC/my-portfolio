@@ -40,9 +40,9 @@ function App() {
   };
 
   return (
-    <main className="relative h-screen w-screen overflow-hidden bg-[#292525] text-white">
+    <main className="relative w-full bg-[#101010] text-white overflow-x-hidden">
       <AnimatedBackground />
-      <div className="relative z-10 flex h-full w-full flex-col p-6 sm:p-8 md:p-16">
+      <div className="relative z-10 flex min-h-screen w-full flex-col p-6 sm:p-8 md:p-16">
         <Header activeTab={view.name} setActiveTab={(tab) => handleSetView(tab)} />
         <AnimatePresence mode="wait">
           {renderPage()}
