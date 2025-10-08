@@ -79,7 +79,7 @@ const ShowcaseProjectItem = ({ project, onClick, index, container }: { project: 
     return (
         <section 
             ref={ref} 
-            className={`min-h-screen flex flex-col lg:flex-row items-center justify-center gap-8 lg:gap-16 py-24 ${isReversed ? 'lg:flex-row-reverse' : ''}`}
+            className={`flex flex-col lg:flex-row items-center justify-center gap-8 lg:gap-16 py-16 ${isReversed ? 'lg:flex-row-reverse' : ''}`}
         >
             <motion.div 
                 className="w-full lg:w-3/5" 
