@@ -7,6 +7,7 @@ export interface Project {
     description: string;       // Short description for cards
     imageUrls: string[];       // Image URLs for the modal carousel
     tags: string[];            // Technology tags/badges
+    displayType: 'web' | 'mobile' | 'design'; // Type of project for display rendering
     longDescription?: string;  // Longer description for the modal
     liveUrl?: string;          // Link to the live project
     repoUrl?: string;          // Link to the GitHub repository
@@ -30,9 +31,10 @@ export const projectData: PortfolioCategory[] = [
             {
                 id: 1,
                 title: 'Personal Portfolio',
+                displayType: 'web',
                 description: 'The very website you are browsing now, built with React and Framer Motion.',
                 imageUrls: [
-                    'https://placehold.co/800x600/101010/F1D500?text=Portfolio+Screenshot+1',
+                    'https://raw.githubusercontent.com/ArenduC/arendu/main/assets/image/reactDIT01.svg',
                     'https://placehold.co/800x600/101010/F1D500?text=Mobile+View',
                     'https://placehold.co/800x600/101010/F1D500?text=Project+Showcase',
                 ],
@@ -44,6 +46,7 @@ export const projectData: PortfolioCategory[] = [
             {
                 id: 2,
                 title: 'E-commerce Platform',
+                displayType: 'web',
                 description: 'A full-featured e-commerce site for a fictional brand, built with Angular.',
                 imageUrls: [
                     'https://placehold.co/800x600/101010/F1D500?text=E-commerce+Home',
@@ -65,6 +68,7 @@ export const projectData: PortfolioCategory[] = [
             {
                 id: 3,
                 title: 'Fitness Tracker App',
+                displayType: 'mobile',
                 description: 'A cross-platform mobile app to track workouts and nutrition, built with Flutter.',
                 imageUrls: [
                     'https://placehold.co/600x800/101010/F1D500?text=Fitness+Dashboard',
@@ -78,6 +82,7 @@ export const projectData: PortfolioCategory[] = [
             {
                 id: 4,
                 title: 'Recipe Finder App',
+                displayType: 'mobile',
                 description: 'A mobile application for discovering and saving recipes, using a public API.',
                 imageUrls: [
                     'https://placehold.co/600x800/101010/F1D500?text=Recipe+Search',
@@ -97,6 +102,7 @@ export const projectData: PortfolioCategory[] = [
             {
                 id: 5,
                 title: '3D Donut',
+                displayType: 'design',
                 description: 'My first foray into 3D modeling following the famous Blender Guru tutorial.',
                 imageUrls: [
                     'https://placehold.co/800x600/101010/F1D500?text=Final+Donut+Render',
@@ -108,6 +114,7 @@ export const projectData: PortfolioCategory[] = [
             {
                 id: 6,
                 title: 'Mobile App UI/UX',
+                displayType: 'design',
                 description: 'A complete UI/UX design for a conceptual travel planning application.',
                 imageUrls: [
                     'https://placehold.co/800x600/101010/F1D500?text=Travel+App+Mockup',

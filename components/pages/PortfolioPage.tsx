@@ -42,17 +42,35 @@ interface PortfolioPageProps {
 const CategoryCard = ({ category, onClick }) => (
     <motion.div 
         onClick={onClick}
-        className="bg-[#3c3c39]/60 backdrop-blur-sm rounded-lg overflow-hidden cursor-pointer group border border-gray-700/50"
+        className="relative bg-gray-900 rounded-lg overflow-hidden cursor-pointer group border border-gray-700/50 shadow-lg aspect-[3/2]"
         variants={cardVariants}
-        whileHover={{ y: -8, transition: { type: 'spring', stiffness: 300 } }}
+        whileHover={{ y: -8, boxShadow: '0 25px 50px -12px rgba(241, 213, 0, 0.2)' }}
     >
+        {/* Background Image with Zoom Effect */}
         <div 
-            className="w-full h-48 bg-cover bg-center"
+            className="absolute inset-0 w-full h-full bg-cover bg-center transition-transform duration-500 ease-in-out group-hover:scale-110"
             style={{ backgroundImage: `url(${category.thumbnail})` }}
         />
-        <div className="p-6">
-            <h3 className="text-2xl font-bold text-white mb-2">{category.title}</h3>
-            <p className="text-gray-400">{category.description}</p>
+        
+        {/* Gradient Overlay */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/60 to-transparent" />
+
+        {/* Content */}
+        <div className="relative h-full flex flex-col justify-end p-6 text-left">
+            <div className="transition-transform duration-500 ease-in-out group-hover:-translate-y-6">
+                 <h3 className="text-2xl font-bold text-white mb-2">{category.title}</h3>
+                 <p className="text-gray-300 text-sm transition-opacity duration-300 group-hover:opacity-0">{category.description}</p>
+            </div>
+
+            {/* Call to Action - Appears on Hover */}
+            <div className="absolute bottom-6 left-6 opacity-0 transition-all duration-500 ease-in-out group-hover:opacity-100 group-hover:bottom-8">
+                <span className="text-[#F1D500] font-semibold flex items-center gap-2">
+                    View Projects 
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                    </svg>
+                </span>
+            </div>
         </div>
     </motion.div>
 );
@@ -69,9 +87,9 @@ export const PortfolioPage: React.FC<PortfolioPageProps> = ({ onShowcase }) => {
             transition={pageTransition}
         >
             <div className="max-w-6xl w-full">
-                <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">My Work</h2>
-                <p className="text-lg md:text-xl text-[#7A7A7A] mb-12">
-                    Here are some of the areas I've worked in. Select a category to see the projects.
+                <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">Explore My Creations</h2>
+                <p className="text-lg md:text-xl text-[#7A7A7A] mb-12 max-w-3xl mx-auto">
+                    I thrive on turning complex problems into beautiful, intuitive designs. Dive in to see my work in web, mobile, and design.
                 </p>
 
                 <motion.div 

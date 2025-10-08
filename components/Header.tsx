@@ -12,13 +12,17 @@ interface HeaderProps {
 const NavLink = ({ label, isActive, onClick }) => (
   <button
     onClick={onClick}
-    className={`font-medium relative transition-colors duration-300 ${
+    className={`font-medium relative transition-colors duration-300 px-2 py-1 ${
       isActive ? 'text-white' : 'text-[#7A7A7A] hover:text-white'
     }`}
   >
     {label}
     {isActive && (
-      <span className="absolute left-0 -bottom-1 w-full h-0.5 bg-[#F1D500] rounded-full" />
+      <motion.span
+        className="absolute left-0 -bottom-1 w-full h-0.5 bg-[#F1D500] rounded-full"
+        layoutId="underline"
+        transition={{ type: 'spring', stiffness: 380, damping: 30 }}
+      />
     )}
   </button>
 );
@@ -31,6 +35,7 @@ const SocialIcon = ({ href, children }) => (
 
 const Header: React.FC<HeaderProps> = ({ activeTab, setActiveTab }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isLogoHovered, setIsLogoHovered] = useState(false);
   const navItems = ['About', 'Portfolio', 'Blog', 'Contact'];
 
   const handleLinkClick = (tab: string) => {
@@ -38,14 +43,33 @@ const Header: React.FC<HeaderProps> = ({ activeTab, setActiveTab }) => {
     setIsMenuOpen(false); // Close menu on navigation
   };
 
+  // Define logo colors based on menu open state and hover state for animation
+  const logoAColor = isMenuOpen ? '#111827' : (isLogoHovered ? '#F1D500' : '#7A7A7A');
+  const logoCColor = isMenuOpen ? '#111827' : (isLogoHovered ? '#7A7A7A' : '#F1D500');
+
+
   return (
     <>
       <header className="w-full flex justify-between items-center z-50">
-        {/* Logo - z-index ensures it's above the overlay */}
-        <div className="font-museo text-4xl font-bold tracking-tighter">
-            <span className={isMenuOpen ? "text-gray-900 transition-colors" : "text-[#7A7A7A] transition-colors"}>A</span>
-            <span className={isMenuOpen ? "text-gray-900 transition-colors" : "text-[#F1D500] transition-colors"}>C</span>
-        </div>
+        {/* Logo with hover animation */}
+        <motion.div
+          className="font-museo text-4xl font-bold tracking-tighter cursor-pointer"
+          onHoverStart={() => setIsLogoHovered(true)}
+          onHoverEnd={() => setIsLogoHovered(false)}
+        >
+          <motion.span
+            animate={{ color: logoAColor }}
+            transition={{ duration: 0.4, ease: 'easeInOut' }}
+          >
+            A
+          </motion.span>
+          <motion.span
+            animate={{ color: logoCColor }}
+            transition={{ duration: 0.4, ease: 'easeInOut' }}
+          >
+            C
+          </motion.span>
+        </motion.div>
 
         {/* Desktop Nav */}
         <nav className="hidden md:flex items-center gap-8">
