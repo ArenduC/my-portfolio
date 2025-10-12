@@ -50,7 +50,7 @@ const Header: React.FC<HeaderProps> = ({ activeTab, setActiveTab }) => {
 
   return (
     <>
-      <header className="w-full flex justify-between items-center z-50">
+      <header className="w-full flex justify-between items-center z-50 mb-8">
         {/* Logo with hover animation */}
         <motion.div
           className="font-museo text-4xl font-bold tracking-tighter cursor-pointer"
