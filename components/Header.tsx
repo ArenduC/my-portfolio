@@ -126,13 +126,15 @@ const Header: React.FC<HeaderProps> = ({ activeTab, setActiveTab }) => {
           >
             <nav className="flex flex-col items-center gap-10">
               {navItems.map((item) => (
-                <button
+                <motion.button
                   key={item}
                   onClick={() => handleLinkClick(item)}
-                  className="text-4xl font-bold text-gray-800 hover:text-gray-900 transition-colors"
+                  className="text-4xl font-bold text-gray-800 hover:text-gray-900"
+                  whileTap={{ scale: 0.95 }}
+                  transition={{ type: 'spring', stiffness: 400, damping: 17 }}
                 >
                   {item}
-                </button>
+                </motion.button>
               ))}
             </nav>
             <div className="flex items-center gap-8 mt-16">

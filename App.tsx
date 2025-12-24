@@ -1,6 +1,7 @@
+
 import React, { useState } from 'react';
-// FIX: Corrected import path casing to resolve file name casing conflict.
-import AnimatedBackground from './components/Animatedbackground';
+// FIX: Corrected import path casing to match the filename 'AnimatedBackground.tsx' exactly.
+import AnimatedBackground from './components/AnimatedBackground';
 import Header from './components/Header';
 import { AboutPage } from './components/pages/AboutPage';
 import { PortfolioPage } from './components/pages/PortfolioPage';

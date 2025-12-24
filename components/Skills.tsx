@@ -6,10 +6,10 @@ import { FlutterIcon } from './icons/FlutterIcon';
 import { ReactIcon } from './icons/ReactIcon';
 
 const IconWrapper = ({ children, href, name }) => (
-  <a href={href} target="_blank" rel="noopener noreferrer" className="relative bg-[#3c3c39] rounded-full p-3 transition-transform hover:scale-110 cursor-pointer group">
+  <a href={href} target="_blank" rel="noopener noreferrer" className="relative bg-[#3c3c39] rounded-full p-3 transition-all duration-300 ease-in-out hover:scale-110 hover:bg-[#F1D500] cursor-pointer group">
     {children}
     {/* Tooltip */}
-    <div className="absolute -top-10 left-1/2 -translate-x-1/2 whitespace-nowrap bg-gray-800 text-white text-xs font-semibold px-2 py-1 rounded-md opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-10">
+    <div className="absolute -top-12 left-1/2 -translate-x-1/2 whitespace-nowrap bg-gray-800 text-white text-xs font-semibold px-2 py-1 rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out pointer-events-none z-10">
       {name}
       {/* Tooltip Arrow */}
       <div className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-2 h-2 bg-gray-800 rotate-45"></div>
@@ -32,7 +32,7 @@ const Skills: React.FC = () => {
             <div className="flex flex-wrap justify-center items-start gap-4 md:gap-6">
                 {skills.map((skill, index) => (
                     <IconWrapper key={index} href={skill.href} name={skill.name}>
-                        <skill.component className="w-5 h-5 md:w-6 md:h-6 text-gray-400 group-hover:text-white transition-colors" />
+                        <skill.component className="w-5 h-5 md:w-6 md:h-6 text-gray-400 group-hover:text-gray-900 transition-colors duration-300 ease-in-out" />
                     </IconWrapper>
                 ))}
             </div>

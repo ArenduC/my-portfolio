@@ -1,3 +1,4 @@
+
 import React, { useRef } from 'react';
 import { motion, type Transition, useScroll, useTransform, type Variants } from 'framer-motion';
 import { GitHubIcon } from '../icons/GitHubIcon';
@@ -96,7 +97,7 @@ export const ProjectDetailPage: React.FC<ProjectDetailPageProps> = ({ project, o
                     style={{ y: parallaxY }}
                 >
                     <img
-                        src={project.imageUrls[0]}
+                        src={project.projectThumbnail || project.imageUrls[0]}
                         alt={`${project.title} main image`}
                         className="w-full h-full object-cover"
                     />

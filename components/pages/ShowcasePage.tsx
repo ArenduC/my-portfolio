@@ -1,3 +1,4 @@
+
 import React, { useRef } from 'react';
 import { motion, type Transition, useScroll, useTransform, type Variants } from 'framer-motion';
 import { type Project } from '../../data/projects';
@@ -28,25 +29,26 @@ const PhoneFrame: React.FC<{children: React.ReactNode; className?: string}> = ({
 
 // A dedicated component to render the project's visual representation.
 const ProjectVisual = ({ project }: { project: Project }) => {
+    const imageUrl = project.projectThumbnail || project.imageUrls[0];
     switch (project.displayType) {
         case 'web':
             return (
                 <BrowserFrame>
-                    <img src={project.imageUrls[0]} className="w-full h-full object-cover object-top" alt={project.title} />
+                    <img src={imageUrl} className="w-full h-full object-cover object-top" alt={project.title} />
                 </BrowserFrame>
             );
         case 'mobile':
             return (
                 <div className="w-full max-w-[250px] mx-auto">
                     <PhoneFrame>
-                        <img src={project.imageUrls[0]} className="w-full h-full object-cover" alt={project.title} />
+                        <img src={imageUrl} className="w-full h-full object-cover" alt={project.title} />
                     </PhoneFrame>
                 </div>
             );
         case 'design':
         default:
              return (
-                <img src={project.imageUrls[0]} className="w-full h-auto object-contain rounded-t-xl shadow-lg" alt={project.title} />
+                <img src={imageUrl} className="w-full h-auto object-contain rounded-t-xl shadow-lg" alt={project.title} />
             );
     }
 }
