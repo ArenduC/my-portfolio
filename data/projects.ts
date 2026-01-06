@@ -1,6 +1,11 @@
 
 // A centralized place for all portfolio project data.
 
+export interface ProjectFeature {
+    title: string;
+    description: string;
+}
+
 // Define the Project type for type safety and consistency.
 export interface Project {
     id: number;
@@ -13,6 +18,7 @@ export interface Project {
     longDescription?: string;  // Longer description for the modal
     liveUrl?: string;          // Link to the live project
     repoUrl?: string;          // Link to the GitHub repository
+    features?: ProjectFeature[]; // Custom titles/descriptions for each gallery image
 }
 
 // Define the Category type
@@ -32,19 +38,33 @@ export const projectData: PortfolioCategory[] = [
         projects: [
             {
                 id: 1,
-                title: 'Personal Portfolio',
+                title: 'Gemini Project Board',
                 displayType: 'web',
                 description: 'The very website you are browsing now, built with React and Framer Motion.',
-                projectThumbnail: 'https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?auto=format&fit=crop&q=80&w=1200',
+                projectThumbnail: 'https://zcxsscvheqidzvkhlnwz.supabase.co/storage/v1/object/public/Default%20image/GeminiPorjectBoardThumnel.png',
                 imageUrls: [
                     'https://raw.githubusercontent.com/ArenduC/arendu/main/assets/image/reactDIT01.svg',
                     'https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&q=80&w=800',
                     'https://images.unsplash.com/photo-1581291518633-83b4ebd1d83e?auto=format&fit=crop&q=80&w=800',
                 ],
+                features: [
+                    {
+                        title: "Project-Based Google Meet Integration",
+                        description: "Each project contains a dedicated Google Meet link, keeping meetings permanently tied to the work they belong to. Team members no longer need to create or search for meeting links. With a single click, users can join the correct meeting directly from the project workspace, ensuring discussions always stay in context."
+                    },
+                    {
+                        title: "Framer Motion Orchestration",
+                        description: "Advanced layout animations and page transitions that ensure a seamless app-like experience within a single-page architecture."
+                    },
+                    {
+                        title: "Adaptive Architecture",
+                        description: "Fully responsive layouts designed with a mobile-first approach, utilizing Tailwind CSS for utility-driven styling and performance."
+                    }
+                ],
                 tags: ['React', 'TypeScript', 'Tailwind CSS', 'Framer Motion'],
                 longDescription: 'This personal portfolio is designed to showcase my skills and projects in a clean, modern, and interactive way. It features a dynamic animated background, smooth page transitions with Framer Motion, and a fully responsive design that works across all devices. The project is built on a robust stack including React and TypeScript for a type-safe and component-based architecture.',
-                liveUrl: '#',
-                repoUrl: 'https://github.com/example/portfolio',
+                liveUrl: 'https://geminiprojectboard.vercel.app/#/',
+                repoUrl: 'https://geminiprojectboard.vercel.app/#/',
             },
             {
                 id: 2,

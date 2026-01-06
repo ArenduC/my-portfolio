@@ -1,6 +1,6 @@
 
-import React, { useState } from 'react';
-// FIX: Corrected import path casing to match the filename 'AnimatedBackground.tsx' exactly.
+import React, { useState, useEffect } from 'react';
+// Corrected import casing to match components/AnimatedBackground.tsx
 import AnimatedBackground from './components/AnimatedBackground';
 import Header from './components/Header';
 import { AboutPage } from './components/pages/AboutPage';
@@ -27,15 +27,34 @@ function App() {
   const [mousePos, setMousePos] = useState({ x: -100, y: -100 });
   const [cursorVariant, setCursorVariant] = useState('default');
 
+  // Handle Hash Routing for external links (PDFs, etc.)
+  useEffect(() => {
+    const handleHashChange = () => {
+      const hash = window.location.hash.replace('#', '');
+      const validRoutes = ['About', 'Portfolio', 'Blog', 'Contact'];
+      const capitalizedHash = hash.charAt(0).toUpperCase() + hash.slice(1).toLowerCase();
+      
+      if (validRoutes.includes(capitalizedHash) && view.name !== capitalizedHash) {
+        setView({ name: capitalizedHash });
+      }
+    };
+
+    handleHashChange();
+
+    window.addEventListener('hashchange', handleHashChange);
+    return () => window.removeEventListener('hashchange', handleHashChange);
+  }, [view.name]);
+
   const handleSetView = (name: string, payload = {}) => {
+    window.location.hash = name.toLowerCase();
     setView(currentView => ({ name, ...payload, previousView: currentView }));
   };
 
   const handleBack = () => {
     if (view.previousView) {
       setView(view.previousView);
+      window.location.hash = view.previousView.name.toLowerCase();
     } else {
-      // Fallback for safety
       if (view.name === 'ProjectDetail') handleSetView('Showcase');
       if (view.name === 'Showcase') handleSetView('Portfolio');
     }
@@ -81,7 +100,7 @@ function App() {
         return <BlogPage />;
       case 'About':
       default:
-        return <AboutPage />;
+        return <AboutPage onNavigate={(tab) => handleSetView(tab)} />;
     }
   };
   
@@ -115,7 +134,7 @@ function App() {
         transition={{ type: 'spring', stiffness: 500, damping: 30 }}
       />
       <AnimatedBackground mousePos={mousePos} />
-      <div className="relative z-10 flex h-screen w-full flex-col p-6 sm:p-8 md:p-16">
+      <div className="relative z-10 flex min-h-screen w-full flex-col p-6 sm:p-8 md:p-16">
         <Header activeTab={view.name} setActiveTab={(tab) => handleSetView(tab)} />
         <AnimatePresence mode="wait">
           {renderPage()}

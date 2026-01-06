@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { GitHubIcon } from './icons/GitHubIcon';
@@ -43,32 +44,21 @@ const Header: React.FC<HeaderProps> = ({ activeTab, setActiveTab }) => {
     setIsMenuOpen(false); // Close menu on navigation
   };
 
-  // Define logo colors based on menu open state and hover state for animation
   const logoAColor = isMenuOpen ? '#111827' : (isLogoHovered ? '#F1D500' : '#7A7A7A');
   const logoCColor = isMenuOpen ? '#111827' : (isLogoHovered ? '#7A7A7A' : '#F1D500');
-
 
   return (
     <>
       <header className="w-full flex justify-between items-center z-50 mb-8">
-        {/* Logo with hover animation */}
+        {/* Logo */}
         <motion.div
           className="font-museo text-4xl font-bold tracking-tighter cursor-pointer"
           onHoverStart={() => setIsLogoHovered(true)}
           onHoverEnd={() => setIsLogoHovered(false)}
+          onClick={() => handleLinkClick('About')}
         >
-          <motion.span
-            animate={{ color: logoAColor }}
-            transition={{ duration: 0.4, ease: 'easeInOut' }}
-          >
-            A
-          </motion.span>
-          <motion.span
-            animate={{ color: logoCColor }}
-            transition={{ duration: 0.4, ease: 'easeInOut' }}
-          >
-            C
-          </motion.span>
+          <motion.span animate={{ color: logoAColor }} transition={{ duration: 0.4 }}>A</motion.span>
+          <motion.span animate={{ color: logoCColor }} transition={{ duration: 0.4 }}>C</motion.span>
         </motion.div>
 
         {/* Desktop Nav */}
@@ -82,20 +72,40 @@ const Header: React.FC<HeaderProps> = ({ activeTab, setActiveTab }) => {
             />
           ))}
         </nav>
-        <div className="hidden md:flex items-center gap-4">
-            <SocialIcon href="https://github.com">
-                <GitHubIcon className="w-6 h-6 text-[#7A7A7A] hover:text-white" />
-            </SocialIcon>
-            <SocialIcon href="https://linkedin.com">
-                <LinkedInIcon className="w-6 h-6 text-[#7A7A7A] hover:text-white" />
-            </SocialIcon>
-            <SocialIcon href="https://instagram.com">
-                <InstagramIcon className="w-6 h-6 text-[#7A7A7A] hover:text-white" />
-            </SocialIcon>
+
+        <div className="hidden md:flex items-center gap-6">
+            <div className="flex items-center gap-4 border-r border-white/10 pr-6 mr-2">
+                <SocialIcon href="https://github.com">
+                    <GitHubIcon className="w-5 h-5 text-[#7A7A7A] hover:text-white transition-colors" />
+                </SocialIcon>
+                <SocialIcon href="https://linkedin.com">
+                    <LinkedInIcon className="w-5 h-5 text-[#7A7A7A] hover:text-white transition-colors" />
+                </SocialIcon>
+            </div>
+            
+            <a 
+              href="/resume.pdf" 
+              download="Arendu_Chanda_Resume.pdf"
+              className="px-5 py-2 rounded-full border border-[#F1D500]/50 text-[#F1D500] text-sm font-bold uppercase tracking-widest hover:bg-[#F1D500] hover:text-gray-900 transition-all active:scale-95 flex items-center gap-2"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+              </svg>
+              CV
+            </a>
         </div>
         
         {/* Mobile Menu Button */}
-        <div className="md:hidden">
+        <div className="md:hidden flex items-center gap-4">
+          <a 
+            href="/resume.pdf" 
+            download
+            className="p-2 text-[#F1D500] border border-[#F1D500]/30 rounded-full"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+            </svg>
+          </a>
           <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="p-2 -mr-2">
             <svg
               className={`w-6 h-6 transition-transform duration-300 ${isMenuOpen ? 'text-gray-900 rotate-180' : 'text-white'}`}
@@ -131,22 +141,15 @@ const Header: React.FC<HeaderProps> = ({ activeTab, setActiveTab }) => {
                   onClick={() => handleLinkClick(item)}
                   className="text-4xl font-bold text-gray-800 hover:text-gray-900"
                   whileTap={{ scale: 0.95 }}
-                  transition={{ type: 'spring', stiffness: 400, damping: 17 }}
                 >
                   {item}
                 </motion.button>
               ))}
             </nav>
             <div className="flex items-center gap-8 mt-16">
-               <SocialIcon href="https://github.com">
-                 <GitHubIcon className="w-8 h-8 text-gray-800 hover:text-gray-900" />
-               </SocialIcon>
-               <SocialIcon href="https://linkedin.com">
-                 <LinkedInIcon className="w-8 h-8 text-gray-800 hover:text-gray-900" />
-               </SocialIcon>
-               <SocialIcon href="https://instagram.com">
-                 <InstagramIcon className="w-8 h-8 text-gray-800 hover:text-gray-900" />
-               </SocialIcon>
+               <SocialIcon href="https://github.com"><GitHubIcon className="w-8 h-8 text-gray-800" /></SocialIcon>
+               <SocialIcon href="https://linkedin.com"><LinkedInIcon className="w-8 h-8 text-gray-800" /></SocialIcon>
+               <SocialIcon href="https://instagram.com"><InstagramIcon className="w-8 h-8 text-gray-800" /></SocialIcon>
             </div>
           </motion.div>
         )}

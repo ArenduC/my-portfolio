@@ -1,3 +1,4 @@
+
 import React, { useRef, useEffect } from 'react';
 
 // Defines a new, vastly more complex and messy SVG path procedurally.
@@ -143,7 +144,7 @@ const AnimatedBackground: React.FC<AnimatedBackgroundProps> = ({ mousePos }) => 
                     // Draw SMALLER RED, ROUNDED bubble
                     ctx.fillStyle = 'rgba(235, 69, 52, 0.95)'; // Red color
                     ctx.beginPath();
-                    // FIX: The end angle for a full circle must be Math.PI * 2. The original value was incorrect.
+                    // FIX: Ensure full circle is drawn with Math.PI * 2
                     ctx.arc(0, 0, 10, 0, Math.PI * 2);
                     ctx.fill();
 

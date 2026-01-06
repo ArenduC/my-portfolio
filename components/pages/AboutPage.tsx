@@ -1,7 +1,7 @@
+
 import React from 'react';
 import Hero from '../Hero';
 import Skills from '../Skills';
-// FIX: Import the Transition type from framer-motion.
 import { motion, type Transition } from 'framer-motion';
 
 const pageVariants = {
@@ -10,15 +10,17 @@ const pageVariants = {
     exit: { opacity: 0, y: -15 },
 };
 
-// FIX: Explicitly type pageTransition to fix TypeScript error where the 'type' property was being widened to 'string'.
 const pageTransition: Transition = {
     type: 'tween',
     ease: 'anticipate',
     duration: 0.4
 };
 
+interface AboutPageProps {
+    onNavigate: (tab: string) => void;
+}
 
-export const AboutPage: React.FC = () => {
+export const AboutPage: React.FC<AboutPageProps> = ({ onNavigate }) => {
     return (
         <motion.div
             key="about"
@@ -29,7 +31,7 @@ export const AboutPage: React.FC = () => {
             variants={pageVariants}
             transition={pageTransition}
         >
-            <Hero />
+            <Hero onContactClick={() => onNavigate('Contact')} />
             <Skills />
         </motion.div>
     );

@@ -163,6 +163,7 @@ export const ProjectDetailPage: React.FC<ProjectDetailPageProps> = ({ project, o
                         <div className="space-y-20 md:space-y-32">
                             {project.imageUrls.map((url, index) => {
                                 const isReversed = index % 2 !== 0;
+                                const feature = project.features?.[index];
                                 return (
                                     <motion.div
                                         key={index}
@@ -180,9 +181,11 @@ export const ProjectDetailPage: React.FC<ProjectDetailPageProps> = ({ project, o
                                             <ProjectVisual project={project} imageUrl={url} />
                                         </motion.div>
                                         <div className={`w-full md:w-2/5 text-center ${isReversed ? 'md:text-right' : 'md:text-left'}`}>
-                                            <h3 className="text-2xl font-semibold text-[#F1D500] mb-3">Key Feature #{index + 1}</h3>
+                                            <h3 className="text-2xl font-semibold text-[#F1D500] mb-3">
+                                                {feature?.title || `Key Feature #${index + 1}`}
+                                            </h3>
                                             <p className="text-gray-400 leading-relaxed">
-                                                This screenshot captures the project's core functionality, designed for intuitive user interaction and a seamless visual experience.
+                                                {feature?.description || "This screenshot captures the project's core functionality, designed for intuitive user interaction and a seamless visual experience."}
                                             </p>
                                         </div>
                                     </motion.div>
