@@ -1,5 +1,5 @@
+
 import React, { useState, useEffect } from 'react';
-// Fix: Use correct casing for the import to match AnimatedBackground.tsx
 import AnimatedBackground from './components/AnimatedBackground';
 import Header from './components/Header';
 import { AboutPage } from './components/pages/AboutPage';
@@ -12,7 +12,6 @@ import Footer from './components/Footer';
 import { AnimatePresence, motion } from 'framer-motion';
 import { type Project } from './data/projects';
 
-// Define a more robust view state
 interface ViewState {
   name: string;
   title?: string;
@@ -26,7 +25,6 @@ function App() {
   const [mousePos, setMousePos] = useState({ x: -100, y: -100 });
   const [cursorVariant, setCursorVariant] = useState('default');
 
-  // Handle Hash Routing for external links (PDFs, etc.)
   useEffect(() => {
     const handleHashChange = () => {
       const hash = window.location.hash.replace('#', '');
@@ -37,9 +35,7 @@ function App() {
         setView({ name: capitalizedHash });
       }
     };
-
     handleHashChange();
-
     window.addEventListener('hashchange', handleHashChange);
     return () => window.removeEventListener('hashchange', handleHashChange);
   }, [view.name]);
@@ -59,16 +55,10 @@ function App() {
     }
   };
 
-
   const handleMouseMove = (event: React.MouseEvent<HTMLElement>) => {
     setMousePos({ x: event.clientX, y: event.clientY });
     const target = event.target as HTMLElement;
-    if (
-      target.tagName === 'A' ||
-      target.tagName === 'BUTTON' ||
-      target.closest('a') ||
-      target.closest('button')
-    ) {
+    if (target.tagName === 'A' || target.tagName === 'BUTTON' || target.closest('a') || target.closest('button')) {
       setCursorVariant('hover');
     } else {
       setCursorVariant('default');

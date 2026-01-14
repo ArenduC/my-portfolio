@@ -87,7 +87,7 @@ const Header: React.FC<HeaderProps> = ({ activeTab, setActiveTab }) => {
         </nav>
 
         <div className="hidden md:flex items-center gap-6">
-            <div className="flex items-center gap-4 border-r border-white/10 pr-6 mr-2">
+            <div className="flex items-center gap-4  pr-6 mr-2">
                 <SocialIcon href="https://github.com">
                     <GitHubIcon className="w-5 h-5 text-[#7A7A7A] hover:text-white transition-colors" />
                 </SocialIcon>
@@ -102,7 +102,7 @@ const Header: React.FC<HeaderProps> = ({ activeTab, setActiveTab }) => {
         {/* Mobile Menu Button */}
         <div className="md:hidden flex items-center gap-4">
           <a 
-            href="/resume.pdf" 
+            href="https://zcxsscvheqidzvkhlnwz.supabase.co/storage/v1/object/public/Default%20image/resume.pdf" 
             download
             className="p-2 text-[#F1D500] border border-[#F1D500]/30 rounded-full"
           >
