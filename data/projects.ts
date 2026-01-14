@@ -94,7 +94,7 @@ export const projectData: PortfolioCategory[] = [
                 title: 'Fitness Tracker App',
                 displayType: 'mobile',
                 description: 'A cross-platform mobile app to track workouts and nutrition, built with Flutter.',
-                projectThumbnail: 'https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&q=80&w=1200',
+                projectThumbnail: 'https://zcxsscvheqidzvkhlnwz.supabase.co/storage/v1/object/public/Default%20image/PORTFOLIO/MACAThumbnail.png',
                 imageUrls: [
                     'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?auto=format&fit=crop&q=80&w=800',
                     'https://images.unsplash.com/photo-1476480862126-209bfaa8edc8?auto=format&fit=crop&q=80&w=800',

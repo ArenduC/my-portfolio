@@ -76,6 +76,7 @@ const AnimatedBackground: React.FC<AnimatedBackgroundProps> = ({ mousePos }) => 
                 const pathData = getPathData(canvas.width, canvas.height);
                 state.path.setAttribute('d', pathData);
                 state.path2D = new Path2D(pathData);
+                // @ts-ignore: path is SVGPathElement
                 state.pathLength = state.path.getTotalLength();
                 // Ensure progress stays within bounds
                 state.progress = state.progress % (state.pathLength || 1);
@@ -97,6 +98,7 @@ const AnimatedBackground: React.FC<AnimatedBackgroundProps> = ({ mousePos }) => 
                 ctx.restore();
 
                 // 1. Calculate current position based on EXISTING progress
+                // @ts-ignore
                 const currentPoint = state.path.getPointAtLength(state.progress);
                 const currentMousePos = mousePosRef.current;
                 const distToPill = Math.hypot(currentMousePos.x - currentPoint.x, currentMousePos.y - currentPoint.y);
@@ -105,20 +107,20 @@ const AnimatedBackground: React.FC<AnimatedBackgroundProps> = ({ mousePos }) => 
                 state.isHovered = isNear;
 
                 // 2. Decide if we should advance the progress for the NEXT frame
-                // We only advance if we are not hovering and not in 'clicked' state
                 if (pillState === 'clicked') {
                     // Stay stopped
                 } else if (isNear) {
                     if (pillState !== 'hovering') setPillState('hovering');
-                    // Progress does NOT increment here - it stays at current state.progress
                 } else {
                     if (pillState === 'hovering') setPillState('moving');
                     state.progress = (state.progress + state.speed) % state.pathLength;
                 }
 
                 // 3. Render at the position defined by state.progress
+                // @ts-ignore
                 const renderPoint = state.path.getPointAtLength(state.progress);
                 const prevPointProgress = (state.progress - 2 + state.pathLength) % state.pathLength;
+                // @ts-ignore
                 const prevPoint = state.path.getPointAtLength(prevPointProgress);
                 const angle = Math.atan2(renderPoint.y - prevPoint.y, renderPoint.x - prevPoint.x);
 
@@ -136,7 +138,13 @@ const AnimatedBackground: React.FC<AnimatedBackgroundProps> = ({ mousePos }) => 
                 }
 
                 ctx.beginPath();
-                ctx.roundRect(-12, -5, 24, 10, 5); 
+                // @ts-ignore
+                if (ctx.roundRect) {
+                  // @ts-ignore
+                  ctx.roundRect(-12, -5, 24, 10, 5); 
+                } else {
+                  ctx.rect(-12, -5, 24, 10);
+                }
                 
                 if (pillState === 'clicked') {
                     ctx.fillStyle = '#10B981';
@@ -164,7 +172,9 @@ const AnimatedBackground: React.FC<AnimatedBackgroundProps> = ({ mousePos }) => 
                     ctx.translate(renderPoint.x, renderPoint.y - 40);
                     ctx.fillStyle = '#F1D500';
                     ctx.beginPath();
-                    ctx.roundRect(-60, -12, 120, 24, 12);
+                    // @ts-ignore
+                    if (ctx.roundRect) ctx.roundRect(-60, -12, 120, 24, 12);
+                    else ctx.rect(-60, -12, 120, 24);
                     ctx.fill();
                     // Arrow
                     ctx.beginPath();
