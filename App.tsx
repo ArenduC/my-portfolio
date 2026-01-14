@@ -1,6 +1,5 @@
-
 import React, { useState, useEffect } from 'react';
-// Corrected import casing to match components/AnimatedBackground.tsx
+// Fix: Use correct casing for the import to match AnimatedBackground.tsx
 import AnimatedBackground from './components/AnimatedBackground';
 import Header from './components/Header';
 import { AboutPage } from './components/pages/AboutPage';

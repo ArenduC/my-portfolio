@@ -1,28 +1,23 @@
 
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 
-// Defines a new, vastly more complex and messy SVG path procedurally.
 const getPathData = (width: number, height: number): string => {
-    const curves = 20;
+    const curves = 16;
     let path = `M ${width * 0.5} ${height * 0.1}`;
     for (let i = 0; i < curves; i++) {
-        const cp1x = (Math.random() * 2 - 0.5) * width;
-        const cp1y = (Math.random() * 2 - 0.5) * height;
-        const cp2x = (Math.random() * 2 - 0.5) * width;
-        const cp2y = (Math.random() * 2 - 0.5) * height;
-        const endX = (Math.random() * 1.4 - 0.2) * width;
-        const endY = (Math.random() * 1.4 - 0.2) * height;
+        const cp1x = (Math.random() * 1.4 - 0.2) * width;
+        const cp1y = (Math.random() * 1.4 - 0.2) * height;
+        const cp2x = (Math.random() * 1.4 - 0.2) * width;
+        const cp2y = (Math.random() * 1.4 - 0.2) * height;
+        const endX = (Math.random() * 0.8 + 0.1) * width;
+        const endY = (Math.random() * 0.8 + 0.1) * height;
         path += ` C ${cp1x} ${cp1y}, ${cp2x} ${cp2y}, ${endX} ${endY}`;
     }
-    const finalCp1x = (Math.random() * 2 - 0.5) * width;
-    const finalCp1y = (Math.random() * 2 - 0.5) * height;
-    const finalCp2x = (Math.random() * 2 - 0.5) * width;
-    const finalCp2y = (Math.random() * 2 - 0.5) * height;
-    path += ` C ${finalCp1x} ${finalCp1y}, ${finalCp2x} ${finalCp2y}, ${width * 0.5} ${height * 0.1} Z`;
+    path += ` Z`;
     return path;
 };
 
-type PillState = 'moving' | 'angry' | 'thankful';
+type PillState = 'moving' | 'hovering' | 'clicked';
 
 interface AnimatedBackgroundProps {
     mousePos: { x: number; y: number };
@@ -31,8 +26,8 @@ interface AnimatedBackgroundProps {
 const AnimatedBackground: React.FC<AnimatedBackgroundProps> = ({ mousePos }) => {
     const canvasRef = useRef<HTMLCanvasElement>(null);
     const mousePosRef = useRef(mousePos);
+    const [pillState, setPillState] = useState<PillState>('moving');
 
-    // This effect keeps the ref updated with the latest mouse position from props
     useEffect(() => {
         mousePosRef.current = mousePos;
     }, [mousePos]);
@@ -43,174 +38,168 @@ const AnimatedBackground: React.FC<AnimatedBackgroundProps> = ({ mousePos }) => 
         path2D: new Path2D(),
         pathLength: 0,
         progress: 0,
-        speed: 1.5,
-        pillState: 'moving' as PillState,
-        thankYouTimer: 0,
+        speed: 1.4,
+        isHovered: false,
     });
+
+    useEffect(() => {
+        const handleGlobalClick = () => {
+            if (animationState.current.isHovered && pillState === 'hovering') {
+                const link = document.createElement('a');
+                link.href = "https://zcxsscvheqidzvkhlnwz.supabase.co/storage/v1/object/public/Default%20image/resume.pdf";
+                link.download = "Arendu_Chanda_Resume.pdf";
+                link.click();
+                setPillState('clicked');
+                setTimeout(() => setPillState('moving'), 3000);
+            }
+        };
+        window.addEventListener('mousedown', handleGlobalClick);
+        return () => window.removeEventListener('mousedown', handleGlobalClick);
+    }, [pillState]);
 
     useEffect(() => {
         const canvas = canvasRef.current;
         if (!canvas) return;
-
         const ctx = canvas.getContext('2d');
         if (!ctx) return;
         
         const state = animationState.current;
 
         const resizeCanvas = () => {
+            const oldWidth = canvas.width;
+            const oldHeight = canvas.height;
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
-            const pathData = getPathData(canvas.width, canvas.height);
-            state.path.setAttribute('d', pathData);
-            state.path2D = new Path2D(pathData);
-            state.pathLength = state.path.getTotalLength();
-            state.progress = 0;
+            
+            // Only regenerate path if it hasn't been created or window size changed significantly
+            if (state.pathLength === 0 || Math.abs(oldWidth - canvas.width) > 100) {
+                const pathData = getPathData(canvas.width, canvas.height);
+                state.path.setAttribute('d', pathData);
+                state.path2D = new Path2D(pathData);
+                state.pathLength = state.path.getTotalLength();
+                // Ensure progress stays within bounds
+                state.progress = state.progress % (state.pathLength || 1);
+            }
         };
 
         resizeCanvas();
         window.addEventListener('resize', resizeCanvas);
 
-        const animate = () => {
+        const animate = (time: number) => {
             if (state.pathLength > 0) {
                 ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-                // Draw the faint path
+                // Subtle background trace
                 ctx.save();
-                ctx.strokeStyle = 'rgba(241, 213, 0, 0.05)';
+                ctx.strokeStyle = 'rgba(241, 213, 0, 0.04)';
                 ctx.lineWidth = 1;
                 ctx.stroke(state.path2D);
                 ctx.restore();
 
+                // 1. Calculate current position based on EXISTING progress
                 const currentPoint = state.path.getPointAtLength(state.progress);
-                const prevPointProgress = (state.progress - state.speed * 2 + state.pathLength) % state.pathLength;
-                const prevPoint = state.path.getPointAtLength(prevPointProgress);
-                const angle = Math.atan2(currentPoint.y - prevPoint.y, currentPoint.x - prevPoint.x);
+                const currentMousePos = mousePosRef.current;
+                const distToPill = Math.hypot(currentMousePos.x - currentPoint.x, currentMousePos.y - currentPoint.y);
                 
-                const rect = canvas.getBoundingClientRect();
-                const currentMousePos = mousePosRef.current; 
-                const canvasMouseX = currentMousePos.x - rect.left;
-                const canvasMouseY = currentMousePos.y - rect.top;
+                const isNear = distToPill < 65; // Slightly larger hit area for stability
+                state.isHovered = isNear;
 
-                const dx = canvasMouseX - currentPoint.x;
-                const dy = canvasMouseY - currentPoint.y;
-                const cosAngle = Math.cos(-angle);
-                const sinAngle = Math.sin(-angle);
-                const localMouseX = dx * cosAngle - dy * sinAngle;
-                const localMouseY = dx * sinAngle + dy * cosAngle;
-
-                const isHovering = localMouseX >= 10 && localMouseX <= 70 &&
-                                     localMouseY >= -15 && localMouseY <= 15;
-
-                switch (state.pillState) {
-                    case 'moving':
-                        if (isHovering) {
-                            state.pillState = 'angry';
-                        } else {
-                            state.progress = (state.progress + state.speed) % state.pathLength;
-                        }
-                        break;
-                    case 'angry':
-                        if (!isHovering) {
-                            state.pillState = 'thankful';
-                            state.thankYouTimer = 120; // 2 seconds at 60fps
-                        }
-                        break;
-                    case 'thankful':
-                        state.thankYouTimer--;
-                        if (state.thankYouTimer <= 0) {
-                            state.pillState = 'moving';
-                        }
-                        break;
+                // 2. Decide if we should advance the progress for the NEXT frame
+                // We only advance if we are not hovering and not in 'clicked' state
+                if (pillState === 'clicked') {
+                    // Stay stopped
+                } else if (isNear) {
+                    if (pillState !== 'hovering') setPillState('hovering');
+                    // Progress does NOT increment here - it stays at current state.progress
+                } else {
+                    if (pillState === 'hovering') setPillState('moving');
+                    state.progress = (state.progress + state.speed) % state.pathLength;
                 }
-                
-                // Draw the pill itself
+
+                // 3. Render at the position defined by state.progress
+                const renderPoint = state.path.getPointAtLength(state.progress);
+                const prevPointProgress = (state.progress - 2 + state.pathLength) % state.pathLength;
+                const prevPoint = state.path.getPointAtLength(prevPointProgress);
+                const angle = Math.atan2(renderPoint.y - prevPoint.y, renderPoint.x - prevPoint.x);
+
+                // Render Yellow Pill
                 ctx.save();
-                ctx.translate(currentPoint.x, currentPoint.y);
+                ctx.translate(renderPoint.x, renderPoint.y);
                 ctx.rotate(angle);
+                
+                if (pillState === 'hovering' || pillState === 'clicked') {
+                    const glow = Math.sin(time / 150) * 5 + 15;
+                    ctx.beginPath();
+                    ctx.arc(0, 0, glow, 0, Math.PI * 2);
+                    ctx.fillStyle = pillState === 'clicked' ? 'rgba(16, 185, 129, 0.2)' : 'rgba(241, 213, 0, 0.2)';
+                    ctx.fill();
+                }
+
                 ctx.beginPath();
-                ctx.roundRect(-10, -4, 20, 8, 4); 
-                ctx.fillStyle = '#F1D500';
-                ctx.fill();
-                ctx.restore(); 
-
-                // Draw Popups
-                if (state.pillState === 'angry') {
-                    ctx.save();
-                    ctx.translate(currentPoint.x, currentPoint.y);
-                    ctx.rotate(angle);
-                    ctx.translate(0, -32); // Adjusted offset for smaller bubble
-                    ctx.rotate(-angle); // Straighten popup
-
-                    // Draw SMALLER RED, ROUNDED bubble
-                    ctx.fillStyle = 'rgba(235, 69, 52, 0.95)'; // Red color
-                    ctx.beginPath();
-                    // FIX: Ensure full circle is drawn with Math.PI * 2
-                    ctx.arc(0, 0, 10, 0, Math.PI * 2);
-                    ctx.fill();
-
-                    // Draw smaller angry face in BLACK
-                    ctx.fillStyle = 'black';
-                    ctx.strokeStyle = 'black';
-                    ctx.lineWidth = 1.2;
-                    ctx.lineCap = 'round';
-                    
-                    ctx.beginPath(); // Smaller Eyes
-                    ctx.arc(-3.5, -0.5, 1.2, 0, Math.PI * 2);
-                    ctx.arc(3.5, -0.5, 1.2, 0, Math.PI * 2);
-                    ctx.fill();
-
-                    ctx.beginPath(); // Shorter Eyebrows
-                    ctx.moveTo(-6, -4.5);
-                    ctx.lineTo(-3, -3.5);
-                    ctx.moveTo(6, -4.5);
-                    ctx.lineTo(3, -3.5);
-                    ctx.stroke();
-
-                    ctx.beginPath(); // Smaller Mouth
-                    ctx.arc(0, 3.5, 2, 0.2 * Math.PI, 0.8 * Math.PI);
-                    ctx.stroke();
-                    ctx.restore();
-
-                } else if (state.pillState === 'thankful') {
-                    ctx.save();
-                    ctx.translate(currentPoint.x, currentPoint.y);
-                    ctx.rotate(angle);
-                    ctx.translate(0, -25); 
-                    ctx.rotate(-angle); 
-                    
-                    // Black background
-                    ctx.fillStyle = 'rgba(16, 16, 16, 0.95)';
-                    // Yellow border
-                    ctx.strokeStyle = '#F1D500';
-                    ctx.lineWidth = 1;
-
-                    ctx.beginPath();
-                    ctx.roundRect(-35, -12, 70, 22, 8);
-                    ctx.fill();
-                    ctx.stroke();
-
-                    // Yellow text
+                ctx.roundRect(-12, -5, 24, 10, 5); 
+                
+                if (pillState === 'clicked') {
+                    ctx.fillStyle = '#10B981';
+                } else if (pillState === 'hovering') {
+                    ctx.fillStyle = '#FFFFFF';
+                } else {
                     ctx.fillStyle = '#F1D500';
-                    ctx.font = '12px Ubuntu';
+                }
+                ctx.fill();
+                
+                // Text inside pill
+                if (pillState === 'hovering' || pillState === 'clicked') {
+                   ctx.rotate(-angle); 
+                   ctx.fillStyle = pillState === 'clicked' ? '#FFFFFF' : '#000000';
+                   ctx.font = 'bold 8px Ubuntu';
+                   ctx.textAlign = 'center';
+                   ctx.textBaseline = 'middle';
+                   ctx.fillText(pillState === 'clicked' ? '✓' : 'CV', 0, 0);
+                }
+                ctx.restore();
+
+                // Interactive Bubble (Tooltip)
+                if (pillState === 'hovering') {
+                    ctx.save();
+                    ctx.translate(renderPoint.x, renderPoint.y - 40);
+                    ctx.fillStyle = '#F1D500';
+                    ctx.beginPath();
+                    ctx.roundRect(-60, -12, 120, 24, 12);
+                    ctx.fill();
+                    // Arrow
+                    ctx.beginPath();
+                    ctx.moveTo(-5, 12); ctx.lineTo(5, 12); ctx.lineTo(0, 18); ctx.fill();
+                    // Label
+                    ctx.fillStyle = '#101010';
+                    ctx.font = 'bold 10px Ubuntu';
                     ctx.textAlign = 'center';
                     ctx.textBaseline = 'middle';
-                    ctx.fillText('Thank you!', 0, 0);
+                    ctx.fillText('DOWNLOAD CV', 0, 0);
+                    ctx.restore();
+                }
+
+                if (pillState === 'clicked') {
+                    ctx.save();
+                    ctx.translate(renderPoint.x, renderPoint.y - 40);
+                    ctx.fillStyle = '#10B981';
+                    ctx.font = 'bold 12px Ubuntu';
+                    ctx.textAlign = 'center';
+                    ctx.fillText('DOWNLOAD STARTED ✓', 0, 0);
                     ctx.restore();
                 }
             }
-
             state.animationFrameId = window.requestAnimationFrame(animate);
         };
 
-        animate();
+        animate(0);
 
         return () => {
             window.cancelAnimationFrame(state.animationFrameId);
             window.removeEventListener('resize', resizeCanvas);
         };
-    }, []);
+    }, [pillState]);
 
-    return <canvas ref={canvasRef} className="fixed top-0 left-0 w-full h-full z-0" />;
+    return <canvas ref={canvasRef} className="fixed top-0 left-0 w-full h-full z-0 pointer-events-none" />;
 };
 
 export default AnimatedBackground;

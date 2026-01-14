@@ -10,7 +10,14 @@ interface HeaderProps {
   setActiveTab: (tab: string) => void;
 }
 
-const NavLink = ({ label, isActive, onClick }) => (
+// Add interface for NavLink props
+interface NavLinkProps {
+  label: string;
+  isActive: boolean;
+  onClick: () => void;
+}
+
+const NavLink: React.FC<NavLinkProps> = ({ label, isActive, onClick }) => (
   <button
     onClick={onClick}
     className={`font-medium relative transition-colors duration-300 px-2 py-1 ${
@@ -28,7 +35,13 @@ const NavLink = ({ label, isActive, onClick }) => (
   </button>
 );
 
-const SocialIcon = ({ href, children }) => (
+// Add interface for SocialIcon props
+interface SocialIconProps {
+  href: string;
+  children: React.ReactNode;
+}
+
+const SocialIcon: React.FC<SocialIconProps> = ({ href, children }) => (
     <a href={href} target="_blank" rel="noopener noreferrer" className="transition-colors">
         {children}
     </a>
@@ -83,16 +96,7 @@ const Header: React.FC<HeaderProps> = ({ activeTab, setActiveTab }) => {
                 </SocialIcon>
             </div>
             
-            <a 
-              href="/resume.pdf" 
-              download="Arendu_Chanda_Resume.pdf"
-              className="px-5 py-2 rounded-full border border-[#F1D500]/50 text-[#F1D500] text-sm font-bold uppercase tracking-widest hover:bg-[#F1D500] hover:text-gray-900 transition-all active:scale-95 flex items-center gap-2"
-            >
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
-              </svg>
-              CV
-            </a>
+           
         </div>
         
         {/* Mobile Menu Button */}

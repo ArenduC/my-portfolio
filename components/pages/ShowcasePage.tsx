@@ -53,9 +53,15 @@ const ProjectVisual = ({ project }: { project: Project }) => {
     }
 }
 
+interface ShowcaseProjectItemProps {
+  project: Project;
+  onClick: () => void;
+  index: number;
+  container: React.RefObject<HTMLElement>;
+}
 
 // --- Animated Project Item for the scrollable showcase ---
-const ShowcaseProjectItem = ({ project, onClick, index, container }: { project: Project; onClick: () => void; index: number; container: React.RefObject<HTMLElement> }) => {
+const ShowcaseProjectItem: React.FC<ShowcaseProjectItemProps> = ({ project, onClick, index, container }) => {
     const ref = useRef<HTMLDivElement>(null);
     const { scrollYProgress } = useScroll({
         target: ref,

@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { AngularIcon } from './icons/AngularIcon';
 import { BlenderIcon } from './icons/BlenderIcon';
@@ -5,7 +6,13 @@ import { FigmaIcon } from './icons/FigmaIcon';
 import { FlutterIcon } from './icons/FlutterIcon';
 import { ReactIcon } from './icons/ReactIcon';
 
-const IconWrapper = ({ children, href, name }) => (
+interface IconWrapperProps {
+  children: React.ReactNode;
+  href: string;
+  name: string;
+}
+
+const IconWrapper: React.FC<IconWrapperProps> = ({ children, href, name }) => (
   <a href={href} target="_blank" rel="noopener noreferrer" className="relative bg-[#3c3c39] rounded-full p-3 transition-all duration-300 ease-in-out hover:scale-110 hover:bg-[#F1D500] cursor-pointer group">
     {children}
     {/* Tooltip */}

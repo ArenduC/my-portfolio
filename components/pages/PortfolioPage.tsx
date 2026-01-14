@@ -1,6 +1,7 @@
+
 import React from 'react';
 import { motion, type Transition, type Variants } from 'framer-motion';
-import { projectData, type Project } from '../../data/projects';
+import { projectData, type Project, type PortfolioCategory } from '../../data/projects';
 
 const pageVariants = {
     initial: { opacity: 0, y: 15 },
@@ -35,11 +36,12 @@ const cardVariants: Variants = {
     },
 };
 
-interface PortfolioPageProps {
-    onShowcase: (title: string, projects: Project[]) => void;
+interface CategoryCardProps {
+  category: PortfolioCategory;
+  onClick: () => void;
 }
 
-const CategoryCard = ({ category, onClick }) => (
+const CategoryCard: React.FC<CategoryCardProps> = ({ category, onClick }) => (
     <motion.div 
         onClick={onClick}
         className="relative bg-gray-900 rounded-lg overflow-hidden cursor-pointer group border border-gray-700/50 shadow-lg aspect-[3/2]"
@@ -74,6 +76,10 @@ const CategoryCard = ({ category, onClick }) => (
         </div>
     </motion.div>
 );
+
+interface PortfolioPageProps {
+    onShowcase: (title: string, projects: Project[]) => void;
+}
 
 export const PortfolioPage: React.FC<PortfolioPageProps> = ({ onShowcase }) => {
     return (
