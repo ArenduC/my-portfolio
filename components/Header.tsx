@@ -91,7 +91,7 @@ const Header: React.FC<HeaderProps> = ({ activeTab, setActiveTab }) => {
                 <SocialIcon href="https://github.com">
                     <GitHubIcon className="w-5 h-5 text-[#7A7A7A] hover:text-white transition-colors" />
                 </SocialIcon>
-                <SocialIcon href="www.linkedin.com/in/arendu-chanda-474008273">
+                <SocialIcon href="https://www.linkedin.com/in/arendu-chanda-474008273/">
                     <LinkedInIcon className="w-5 h-5 text-[#7A7A7A] hover:text-white transition-colors" />
                 </SocialIcon>
             </div>
