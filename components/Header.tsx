@@ -91,7 +91,7 @@ const Header: React.FC<HeaderProps> = ({ activeTab, setActiveTab }) => {
                 <SocialIcon href="https://github.com">
                     <GitHubIcon className="w-5 h-5 text-[#7A7A7A] hover:text-white transition-colors" />
                 </SocialIcon>
-                <SocialIcon href="https://linkedin.com">
+                <SocialIcon href="www.linkedin.com/in/arendu-chanda-474008273">
                     <LinkedInIcon className="w-5 h-5 text-[#7A7A7A] hover:text-white transition-colors" />
                 </SocialIcon>
             </div>
@@ -152,8 +152,8 @@ const Header: React.FC<HeaderProps> = ({ activeTab, setActiveTab }) => {
             </nav>
             <div className="flex items-center gap-8 mt-16">
                <SocialIcon href="https://github.com"><GitHubIcon className="w-8 h-8 text-gray-800" /></SocialIcon>
-               <SocialIcon href="https://linkedin.com"><LinkedInIcon className="w-8 h-8 text-gray-800" /></SocialIcon>
-               <SocialIcon href="https://instagram.com"><InstagramIcon className="w-8 h-8 text-gray-800" /></SocialIcon>
+               <SocialIcon href="www.linkedin.com/in/arendu-chanda-474008273"><LinkedInIcon className="w-8 h-8 text-gray-800" /></SocialIcon>
+               
             </div>
           </motion.div>
         )}
