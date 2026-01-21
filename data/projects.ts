@@ -40,12 +40,10 @@ export const projectData: PortfolioCategory[] = [
                 id: 1,
                 title: 'Gemini Project Board',
                 displayType: 'web',
-                description: 'The very website you are browsing now, built with React and Framer Motion.',
+                description: 'GeminiProjectBoard is a smart project management platform to plan, track, and collaborate on tasks, boards, and workflows—all in one place.',
                 projectThumbnail: 'https://zcxsscvheqidzvkhlnwz.supabase.co/storage/v1/object/public/Default%20image/GeminiPorjectBoardThumnel.png',
                 imageUrls: [
-                    'https://raw.githubusercontent.com/ArenduC/arendu/main/assets/image/reactDIT01.svg',
-                    'https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&q=80&w=800',
-                    'https://images.unsplash.com/photo-1581291518633-83b4ebd1d83e?auto=format&fit=crop&q=80&w=800',
+                   
                 ],
                 features: [
                     {
@@ -62,24 +60,36 @@ export const projectData: PortfolioCategory[] = [
                     }
                 ],
                 tags: ['React', 'TypeScript', 'Tailwind CSS', 'Framer Motion'],
-                longDescription: 'This personal portfolio is designed to showcase my skills and projects in a clean, modern, and interactive way. It features a dynamic animated background, smooth page transitions with Framer Motion, and a fully responsive design that works across all devices. The project is built on a robust stack including React and TypeScript for a type-safe and component-based architecture.',
+                longDescription: 'GeminiProjectBoard is a powerful and intuitive project management app designed to help teams and individuals organize work, track progress, and collaborate efficiently. Using structured boards and tasks, users can manage projects from planning to completion with full visibility and control.',
                 liveUrl: 'https://geminiprojectboard.vercel.app/#/',
                 repoUrl: 'https://geminiprojectboard.vercel.app/#/',
             },
             {
                 id: 2,
-                title: 'E-commerce Platform',
+                title: 'Self Study',
                 displayType: 'web',
-                description: 'A full-featured e-commerce site for a fictional brand, built with Angular.',
-                projectThumbnail: 'https://images.unsplash.com/photo-1557821552-17105176677c?auto=format&fit=crop&q=80&w=1200',
+                description: 'A smart self-study platform that analyzes your PDFs to create test series, practice questions, global map exercises, and GK challenges—helping you learn faster and smarter.',
+                projectThumbnail: 'https://zcxsscvheqidzvkhlnwz.supabase.co/storage/v1/object/public/Default%20image/Self%20Study.png',
                 imageUrls: [
-                    'https://images.unsplash.com/photo-1472851294608-062f824d29cc?auto=format&fit=crop&q=80&w=800',
-                    'https://images.unsplash.com/photo-1523474253046-2cd2c788f3ff?auto=format&fit=crop&q=80&w=800',
-                    'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&q=80&w=800',
+                   
                 ],
                 tags: ['Angular', 'TypeScript', 'SCSS', 'NgRx', 'REST API'],
-                longDescription: 'This project is a comprehensive e-commerce platform featuring product catalogs, user authentication, a shopping cart, and a checkout process. State management is handled efficiently using NgRx. The front-end is built with Angular and is fully responsive, interacting with a mock REST API for data.',
-                liveUrl: 'https://example.com/ecommerce',
+                longDescription: 'This self-study app is designed to make learning more effective, personalized, and exam-ready. Users can upload PDFs such as notes, textbooks, or study materials, and the app automatically analyzes the content to generate structured test series, quizzes, and practice questions.',
+                liveUrl: 'https://self-study-graphynovus.vercel.app/',
+                repoUrl: 'https://github.com/example/ecommerce',
+            },
+             {
+                id: 3,
+                title: 'Vivid Trails',
+                displayType: 'web',
+                description: 'Vivid Trails is a travel storytelling platform where explorers share real journeys, connect through experiences, and participate in exciting travel story competitions.',
+                projectThumbnail: 'https://zcxsscvheqidzvkhlnwz.supabase.co/storage/v1/object/public/Default%20image/Vivid%20Trails.png',
+                imageUrls: [
+                   
+                ],
+                tags: ['Angular', 'TypeScript', 'SCSS', 'NgRx', 'REST API'],
+                longDescription: 'Vivid Trails is a community-driven travel platform designed for storytellers, explorers, and dreamers. It allows travelers to share their personal journeys, memorable experiences, and hidden gems from around the world through engaging stories and visuals.',
+                liveUrl: 'https://vivid-trails-graphynovus.vercel.app/#',
                 repoUrl: 'https://github.com/example/ecommerce',
             },
         ],
@@ -91,68 +101,31 @@ export const projectData: PortfolioCategory[] = [
         projects: [
             {
                 id: 3,
-                title: 'Fitness Tracker App',
+                title: 'A Mess Management App',
                 displayType: 'mobile',
-                description: 'A cross-platform mobile app to track workouts and nutrition, built with Flutter.',
+                description: 'A simple mess management app to track meals, manage attendance, calculate expenses, and simplify daily mess operations.',
                 projectThumbnail: 'https://zcxsscvheqidzvkhlnwz.supabase.co/storage/v1/object/public/Default%20image/PORTFOLIO/MACAThumbnail.png',
                 imageUrls: [
-                    'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?auto=format&fit=crop&q=80&w=800',
-                    'https://images.unsplash.com/photo-1476480862126-209bfaa8edc8?auto=format&fit=crop&q=80&w=800',
-                    'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&q=80&w=800',
+                   
                 ],
                 tags: ['Flutter', 'Dart', 'Firebase', 'Provider'],
-                longDescription: 'This fitness tracker helps users monitor their physical activity and diet. Features include real-time workout tracking, barcode scanner for food logging, and progress charts. It uses Firebase for backend services like authentication and database, with Provider for state management.',
+                longDescription: 'The Mess Management mobile app is designed to make daily mess operations simple, transparent, and efficient. It helps manage meal attendance, track food consumption, and calculate individual or group expenses with accuracy.',
                 repoUrl: 'https://github.com/example/fitness-app',
             },
             {
                 id: 4,
-                title: 'Recipe Finder App',
+                title: 'A Resource Management App',
                 displayType: 'mobile',
-                description: 'A mobile application for discovering and saving recipes, using a public API.',
-                projectThumbnail: 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&q=80&w=1200',
+                description: 'A smart resource management app to track attendance, manage leave, and monitor workforce utilization in real time.',
+                projectThumbnail: 'https://zcxsscvheqidzvkhlnwz.supabase.co/storage/v1/object/public/Default%20image/Resource%20Management.png',
                 imageUrls: [
-                    'https://images.unsplash.com/photo-1495521821757-a1efb6729352?auto=format&fit=crop&q=80&w=800',
-                    'https://images.unsplash.com/photo-1506368249639-73a05d6f6488?auto=format&fit=crop&q=80&w=800',
+                   
                 ],
                 tags: ['Flutter', 'Dart', 'REST API', 'Bloc'],
-                longDescription: 'This app allows users to search for recipes based on ingredients they have. It fetches data from a third-party API and presents it in a user-friendly interface. Users can save their favorite recipes for later access. The app architecture is built using the BLoC pattern for a clean separation of concerns.',
+                longDescription: 'The Resource Management Android App is designed to help organizations efficiently manage their workforce through a centralized and easy-to-use platform. It enables accurate attendance tracking, seamless leave application and approval, and real-time monitoring of resource utilization.',
                 repoUrl: 'https://github.com/example/recipe-app',
             },
         ],
     },
-    {
-        title: 'UI/UX & 3D Design',
-        description: 'Designing intuitive interfaces and creating 3D models and scenes.',
-        thumbnail: 'https://images.unsplash.com/photo-1633356122544-f134324a6cee?auto=format&fit=crop&q=80&w=800',
-        projects: [
-            {
-                id: 5,
-                title: '3D Abstract Scene',
-                displayType: 'design',
-                description: 'Exploring abstract 3D forms and light in Blender.',
-                projectThumbnail: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&q=80&w=1200',
-                imageUrls: [
-                    'https://images.unsplash.com/photo-1620641788421-7a1c342ea42e?auto=format&fit=crop&q=80&w=800',
-                    'https://images.unsplash.com/photo-1614850523296-d8c1af93d400?auto=format&fit=crop&q=80&w=800',
-                ],
-                tags: ['Blender', '3D Modeling', 'Rendering'],
-                longDescription: 'This project focuses on the interplay of geometric shapes, procedural textures, and dynamic lighting. Created using Blender, it explores how minimal forms can evoke complex emotions through composition and color theory.',
-            },
-            {
-                id: 6,
-                title: 'Mobile App UI/UX',
-                displayType: 'design',
-                description: 'A complete UI/UX design for a conceptual travel planning application.',
-                projectThumbnail: 'https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?auto=format&fit=crop&q=80&w=1200',
-                imageUrls: [
-                    'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&q=80&w=800',
-                    'https://images.unsplash.com/photo-1433086566608-e6d2823830b0?auto=format&fit=crop&q=80&w=800',
-                    'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&q=80&w=800',
-                ],
-                tags: ['Figma', 'UI/UX Design', 'Prototyping', 'Wireframing'],
-                longDescription: 'This project involved user research, creating user personas, wireframing, and building a high-fidelity, interactive prototype for a travel app. The goal was to create an intuitive and visually appealing interface that simplifies trip planning. A complete design system and component library were also created in Figma.',
-                liveUrl: 'https://www.figma.com/proto/example',
-            },
-        ],
-    },
+   
 ];

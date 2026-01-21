@@ -41,10 +41,10 @@ const ProjectVisual = ({ project }: { project: Project }) => {
             );
         case 'mobile':
             return (
-                <div className="w-full max-w-[280px] mx-auto py-4">
-                    <PhoneFrame>
-                        <img src={imageUrl} className="w-full h-full object-cover" alt={project.title} />
-                    </PhoneFrame>
+                <div className="w-full aspect-video">
+                    <BrowserFrame>
+                        <img src={imageUrl} className="w-full h-full object-cover object-top" alt={project.title} />
+                    </BrowserFrame>
                 </div>
             );
         case 'design':

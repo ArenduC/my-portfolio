@@ -39,10 +39,10 @@ const ProjectVisual = ({ project, imageUrl }: { project: Project, imageUrl: stri
             );
         case 'mobile':
             return (
-                <div className="w-full max-w-[300px] mx-auto aspect-[9/19] py-4">
-                     <PhoneFrame>
-                        <img src={imageUrl} className="w-full h-full object-cover" alt={project.title} />
-                    </PhoneFrame>
+                <div className="w-full aspect-video">
+                     <BrowserFrame>
+                        <img src={imageUrl} className="w-full h-full object-cover object-top" alt={project.title} />
+                    </BrowserFrame>
                 </div>
             );
         case 'design':
@@ -161,26 +161,33 @@ export const ProjectDetailPage: React.FC<ProjectDetailPageProps> = ({ project, o
                             
                             <div className="grid grid-cols-1 lg:grid-cols-4 gap-16">
                                 <motion.div variants={itemVariants} className="lg:col-span-3">
-                                    <h2 className="text-xs font-black text-[#F1D500] uppercase tracking-[0.4em] mb-6">Execution Strategy</h2>
+                                    <h2 className="text-xs font-black text-[#F1D500] uppercase tracking-[0.4em] mb-6">Description</h2>
                                     <p className="text-gray-300 text-xl md:text-2xl leading-relaxed font-light">
                                         {project.longDescription || project.description}
                                     </p>
                                 </motion.div>
+
+                           
+  {project.displayType !== "mobile" && (
+    <motion.div variants={itemVariants} className="flex flex-col gap-6">
+      <h2 className="text-xs font-black text-[#F1D500] uppercase tracking-[0.4em] mb-2">
+        Connect
+      </h2>
+
+      {project.liveUrl && (
+        <a
+          href={project.liveUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="w-full bg-[#F1D500] text-black font-black py-5 rounded-2xl text-center transition-all hover:bg-white hover:scale-[1.03] shadow-lg text-sm tracking-widest uppercase"
+        >
+          LIVE DEMO
+        </a>
+      )}
+    </motion.div>
+  )}
                                 
-                                <motion.div variants={itemVariants} className="flex flex-col gap-6">
-                                    <h2 className="text-xs font-black text-[#F1D500] uppercase tracking-[0.4em] mb-2">Connect</h2>
-                                    {project.liveUrl && (
-                                        <a href={project.liveUrl} target="_blank" rel="noopener noreferrer" className="w-full bg-[#F1D500] text-black font-black py-5 rounded-2xl text-center transition-all hover:bg-white hover:scale-[1.03] shadow-lg text-sm tracking-widest uppercase">
-                                            LIVE DEMO
-                                        </a>
-                                    )}
-                                    {project.repoUrl && (
-                                        <a href={project.repoUrl} target="_blank" rel="noopener noreferrer" className="w-full bg-white/5 border border-white/10 text-white font-bold py-5 rounded-2xl text-center flex items-center justify-center gap-3 transition-all hover:bg-white/10 text-sm tracking-widest uppercase">
-                                            <GitHubIcon className="w-5 h-5" />
-                                            <span>REPO</span>
-                                        </a>
-                                    )}
-                                </motion.div>
+                                
                             </div>
                         </motion.div>
                     </div>
