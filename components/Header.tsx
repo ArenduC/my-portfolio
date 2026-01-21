@@ -152,7 +152,7 @@ const Header: React.FC<HeaderProps> = ({ activeTab, setActiveTab }) => {
             </nav>
             <div className="flex items-center gap-8 mt-16">
                <SocialIcon href="https://github.com"><GitHubIcon className="w-8 h-8 text-gray-800" /></SocialIcon>
-               <SocialIcon href="www.linkedin.com/in/arendu-chanda-474008273"><LinkedInIcon className="w-8 h-8 text-gray-800" /></SocialIcon>
+               <SocialIcon href="https://www.linkedin.com/in/arendu-chanda-474008273/"><LinkedInIcon className="w-8 h-8 text-gray-800" /></SocialIcon>
                
             </div>
           </motion.div>
