@@ -42,7 +42,7 @@ interface SocialIconProps {
 }
 
 const SocialIcon: React.FC<SocialIconProps> = ({ href, children }) => (
-    <a href={href} target="_blank" rel="noopener noreferrer" className="transition-colors">
+    <a href={href}  rel="noopener noreferrer" className="transition-colors">
         {children}
     </a>
 );
