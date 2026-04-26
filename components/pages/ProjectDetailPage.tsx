@@ -169,20 +169,20 @@ export const ProjectDetailPage: React.FC<ProjectDetailPageProps> = ({ project, o
                                 </motion.div>
                                 
                                 <motion.div variants={itemVariants} className="flex flex-col gap-6">
-                                    {(project.displayType !== "mobile" || project.playStoreUrl) && (
+                                    {(project.liveUrl || project.playStoreUrl) && (
                                         <>
                                             <h2 className="text-xs font-black text-[#F1D500] uppercase tracking-[0.4em] mb-2">
                                                 Connect
                                             </h2>
 
-                                            {project.displayType !== "mobile" && project.liveUrl && (
+                                            {project.liveUrl && (
                                                 <a
                                                 href={project.liveUrl}
                                                 target="_blank"
                                                 rel="noopener noreferrer"
                                                 className="w-full bg-[#F1D500] text-black font-black py-5 rounded-2xl text-center transition-all hover:bg-white hover:scale-[1.03] shadow-lg text-sm tracking-widest uppercase"
                                                 >
-                                                LIVE DEMO
+                                                {project.displayType === 'mobile' ? 'VIEW WEBSITE' : 'LIVE DEMO'}
                                                 </a>
                                             )}
 

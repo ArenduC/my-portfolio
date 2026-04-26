@@ -113,6 +113,7 @@ export const projectData: PortfolioCategory[] = [
                 longDescription: 'The Mess Management mobile app is designed to make daily mess operations simple, transparent, and efficient. It helps manage meal attendance, track food consumption, and calculate individual or group expenses with accuracy.',
                 playStoreUrl: 'https://play.google.com/store/apps/details?id=com.graphynovus.maca&pcampaignid=web_share',
                 repoUrl: 'https://github.com/example/fitness-app',
+                liveUrl: 'https://macaapp.vercel.app/',
             },
             {
                 id: 4,

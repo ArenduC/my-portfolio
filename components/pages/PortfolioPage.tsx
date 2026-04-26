@@ -41,7 +41,7 @@ interface CategoryCardProps {
   onClick: () => void;
 }
 
-const CategoryCard: React.FC<CategoryCardProps> = ({ category, onClick }) => (
+const CategoryCard = ({ category, onClick }: CategoryCardProps) => (
     <motion.div 
         onClick={onClick}
         className="relative bg-gray-900 rounded-lg overflow-hidden cursor-pointer group border border-gray-700/50 shadow-lg aspect-[3/2]"
@@ -81,7 +81,7 @@ interface PortfolioPageProps {
     onShowcase: (title: string, projects: Project[]) => void;
 }
 
-export const PortfolioPage: React.FC<PortfolioPageProps> = ({ onShowcase }) => {
+export function PortfolioPage({ onShowcase }: PortfolioPageProps) {
     return (
         <motion.div
             key="portfolio"
@@ -115,4 +115,4 @@ export const PortfolioPage: React.FC<PortfolioPageProps> = ({ onShowcase }) => {
             </div>
         </motion.div>
     );
-};
+}
