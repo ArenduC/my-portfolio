@@ -1,6 +1,7 @@
 
 import React, { useRef } from 'react';
 import { motion, type Transition, useScroll, useTransform, type Variants } from 'framer-motion';
+import { QRCodeCanvas } from 'qrcode.react';
 import { GitHubIcon } from '../icons/GitHubIcon';
 import { type Project } from '../../data/projects';
 
@@ -166,26 +167,82 @@ export const ProjectDetailPage: React.FC<ProjectDetailPageProps> = ({ project, o
                                         {project.longDescription || project.description}
                                     </p>
                                 </motion.div>
+                                
+                                <motion.div variants={itemVariants} className="flex flex-col gap-6">
+                                    {(project.displayType !== "mobile" || project.playStoreUrl) && (
+                                        <>
+                                            <h2 className="text-xs font-black text-[#F1D500] uppercase tracking-[0.4em] mb-2">
+                                                Connect
+                                            </h2>
 
-                           
-  {project.displayType !== "mobile" && (
-    <motion.div variants={itemVariants} className="flex flex-col gap-6">
-      <h2 className="text-xs font-black text-[#F1D500] uppercase tracking-[0.4em] mb-2">
-        Connect
-      </h2>
+                                            {project.displayType !== "mobile" && project.liveUrl && (
+                                                <a
+                                                href={project.liveUrl}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className="w-full bg-[#F1D500] text-black font-black py-5 rounded-2xl text-center transition-all hover:bg-white hover:scale-[1.03] shadow-lg text-sm tracking-widest uppercase"
+                                                >
+                                                LIVE DEMO
+                                                </a>
+                                            )}
 
-      {project.liveUrl && (
-        <a
-          href={project.liveUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="w-full bg-[#F1D500] text-black font-black py-5 rounded-2xl text-center transition-all hover:bg-white hover:scale-[1.03] shadow-lg text-sm tracking-widest uppercase"
-        >
-          LIVE DEMO
-        </a>
-      )}
-    </motion.div>
-  )}
+                                            {project.displayType === "mobile" && project.playStoreUrl && (
+                                                <div className="flex flex-col items-center gap-6 p-6 bg-white/5 border border-white/10 rounded-3xl">
+                                                    <div className="bg-white p-3 rounded-2xl shadow-2xl">
+                                                        <QRCodeCanvas 
+                                                            value={project.playStoreUrl} 
+                                                            size={150}
+                                                            level="H"
+                                                            includeMargin={false}
+                                                            imageSettings={{
+                                                                src: "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48dGV4dCB4PSI1MCIgeT0iNjUiIGRvbWluYW50LWJhc2VsaW5lPSJtaWRkbGUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJNdXNlb01vZGVybm8sIHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iODAiIGZvbnQtd2VpZ2h0PSI5MDAiPjx0c3BhbiBmaWxsPSIjN0E3QTdBIj5BPC90c3Bhbj48dHNwYW4gZmlsbD0iI0YxRDUwMCI+QzwvdHNwYW4+PC90ZXh0Pjwvc3ZnPg==",
+                                                                x: undefined,
+                                                                y: undefined,
+                                                                height: 30,
+                                                                width: 30,
+                                                                excavate: true,
+                                                            }}
+                                                        />
+                                                    </div>
+                                                    <div className="text-center">
+                                                        <p className="text-[10px] text-gray-400 font-bold uppercase tracking-widest mb-3">Scan to Download</p>
+                                                        <a 
+                                                            href={project.playStoreUrl}
+                                                            target="_blank"
+                                                            rel="noopener noreferrer"
+                                                            className="inline-flex items-center gap-2 text-[#F1D500] hover:text-white transition-colors"
+                                                        >
+                                                            <span className="text-xs font-black tracking-widest uppercase">Play Store</span>
+                                                            <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                                                            </svg>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            )}
+                                        </>
+                                    )}
+
+                                    {project.repoUrl && (
+                                         <div className="mt-4">
+                                            <h2 className="text-xs font-black text-[#F1D500] uppercase tracking-[0.4em] mb-4">Source</h2>
+                                            <a
+                                                href={project.repoUrl}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className="flex items-center gap-4 text-gray-400 hover:text-white transition-colors group"
+                                            >
+                                                <div className="bg-white/5 p-3 rounded-xl group-hover:bg-white/10 transition-colors">
+                                                    <GitHubIcon className="w-6 h-6" />
+                                                </div>
+                                                <div>
+                                                    <p className="text-[10px] font-bold uppercase tracking-widest text-gray-500">View on GitHub</p>
+                                                    <p className="text-xs font-black uppercase tracking-widest">Repository</p>
+                                                </div>
+                                            </a>
+                                         </div>
+                                    )}
+                                </motion.div>
                                 
                                 
                             </div>

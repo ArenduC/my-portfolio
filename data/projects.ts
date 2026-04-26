@@ -17,6 +17,7 @@ export interface Project {
     displayType: 'web' | 'mobile' | 'design'; // Type of project for display rendering
     longDescription?: string;  // Longer description for the modal
     liveUrl?: string;          // Link to the live project
+    playStoreUrl?: string;     // Link to the Google Play Store
     repoUrl?: string;          // Link to the GitHub repository
     features?: ProjectFeature[]; // Custom titles/descriptions for each gallery image
 }
@@ -110,6 +111,7 @@ export const projectData: PortfolioCategory[] = [
                 ],
                 tags: ['Flutter', 'Dart', 'Firebase', 'Provider'],
                 longDescription: 'The Mess Management mobile app is designed to make daily mess operations simple, transparent, and efficient. It helps manage meal attendance, track food consumption, and calculate individual or group expenses with accuracy.',
+                playStoreUrl: 'https://play.google.com/store/apps/details?id=com.graphynovus.maca&pcampaignid=web_share',
                 repoUrl: 'https://github.com/example/fitness-app',
             },
             {
@@ -123,6 +125,7 @@ export const projectData: PortfolioCategory[] = [
                 ],
                 tags: ['Flutter', 'Dart', 'REST API', 'Bloc'],
                 longDescription: 'The Resource Management Android App is designed to help organizations efficiently manage their workforce through a centralized and easy-to-use platform. It enables accurate attendance tracking, seamless leave application and approval, and real-time monitoring of resource utilization.',
+                playStoreUrl: 'https://play.google.com/store/apps/details?id=com.resource.management',
                 repoUrl: 'https://github.com/example/recipe-app',
             },
         ],
